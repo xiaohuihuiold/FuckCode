@@ -50,9 +50,13 @@ public class BaseLine implements Cloneable {
         return Runtime.getInstance().callMethod(name, params);
     }
 
+    public Object exec(String name, Object[] objects) {
+        return Runtime.getInstance().exec(name, objects);
+    }
+
     public boolean addValue(String key, Object value) {
         if (getParent() != null) {
-            getParent().addValue(key, value);
+            getParent().addField(key, value);
             return true;
         }
         return false;

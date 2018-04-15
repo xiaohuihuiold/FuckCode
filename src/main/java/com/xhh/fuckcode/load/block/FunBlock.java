@@ -14,6 +14,14 @@ public class FunBlock extends BaseBlock {
         super(type);
     }
 
+    @Override
+    public int run() {
+        for (int i = 0; i < lineSize(); i++) {
+            getLine(i).run();
+        }
+        return 0;
+    }
+
     public String getName() {
         return name;
     }
@@ -28,6 +36,12 @@ public class FunBlock extends BaseBlock {
 
     public void setParams(Object[] params) {
         this.params = params;
+        if (params == null) {
+            return;
+        }
+        for (int i = 0; i < params.length; i++) {
+            addField("v" + i, params[i]);
+        }
     }
 
     public Object getRet() {

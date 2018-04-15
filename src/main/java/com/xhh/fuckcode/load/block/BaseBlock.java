@@ -21,17 +21,17 @@ public class BaseBlock extends BaseLine {
         super(type);
     }
 
-    @Override
-    public int run() {
-        return 0;
-    }
-
     public void addLine(BaseLine baseLine) {
+        baseLine.setParent(this);
         baseLines.add(baseLine);
     }
 
     public BaseLine getLine(int index) {
         return baseLines.get(index);
+    }
+
+    public int lineSize(){
+        return baseLines.size();
     }
 
     public Object getField(String name) {

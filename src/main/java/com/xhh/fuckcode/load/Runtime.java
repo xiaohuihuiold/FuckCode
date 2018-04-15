@@ -30,7 +30,10 @@ public class Runtime {
     }
 
     public void run() {
+        long startTime = System.nanoTime();
         callMethod("main", null);
+        long allTime = System.nanoTime() - startTime;
+        System.out.println("程序关闭，耗时:" + (allTime / 1000000.0) + "ms(" + allTime + "ns)");
     }
 
     public Object callMethod(String name, Object[] params) {

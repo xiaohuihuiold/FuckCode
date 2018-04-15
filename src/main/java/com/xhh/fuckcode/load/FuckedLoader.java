@@ -48,7 +48,7 @@ public class FuckedLoader {
     }
 
     public void load(InputStream fileInputStream) throws IOException {
-        long startTime = System.currentTimeMillis();
+        long startTime = System.nanoTime();
         if (fileInputStream == null) {
             System.out.println("输入流为空");
             return;
@@ -68,8 +68,8 @@ public class FuckedLoader {
             }
             System.out.println();
         }*/
-        long endTime = System.currentTimeMillis();
-        System.out.println("解析完成，耗时:" + (endTime - startTime) + "ms");
+        long allTime = System.nanoTime() - startTime;
+        System.out.println("解析完成，耗时:" + (allTime / 1000000.0) + "ms(" + allTime + "ns)");
     }
 
 }
