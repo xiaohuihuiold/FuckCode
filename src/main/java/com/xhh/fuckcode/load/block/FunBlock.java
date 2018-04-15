@@ -37,4 +37,26 @@ public class FunBlock extends BaseBlock {
     public void setRet(Object ret) {
         this.ret = ret;
     }
+
+    public boolean isFun(String name, Object[] objects) {
+        if (!name.equals(name)) {
+            return false;
+        }
+        if ((objects == null && params != null) || (objects != null && params == null)) {
+            return false;
+        }
+
+        if (objects == null && params == null) {
+            return true;
+        }
+        if (objects.length != params.length) {
+            return false;
+        }
+        for (int i = 0; i < objects.length; i++) {
+            if (objects[i].getClass() != params[i].getClass()) {
+                return false;
+            }
+        }
+        return true;
+    }
 }

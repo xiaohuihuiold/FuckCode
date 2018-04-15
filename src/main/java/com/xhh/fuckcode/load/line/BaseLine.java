@@ -1,8 +1,9 @@
 package com.xhh.fuckcode.load.line;
 
+import com.xhh.fuckcode.load.Runtime;
 import com.xhh.fuckcode.load.block.BaseBlock;
 
-public class BaseLine implements Cloneable{
+public class BaseLine implements Cloneable {
 
     private int type;
     private BaseBlock parent;
@@ -16,6 +17,10 @@ public class BaseLine implements Cloneable{
         this.type = type;
     }
 
+    public int run() {
+
+        return 0;
+    }
 
     public int getType() {
         return type;
@@ -39,6 +44,10 @@ public class BaseLine implements Cloneable{
 
     public void setStartSP(int startSP) {
         this.startSP = startSP;
+    }
+
+    public Object callMethod(String name, Object[] params) {
+        return Runtime.getInstance().callMethod(name, params);
     }
 
     public boolean addValue(String key, Object value) {
@@ -82,13 +91,13 @@ public class BaseLine implements Cloneable{
         return result;
     }
 
-    public void clear(){
+    public void clear() {
 
     }
 
     @Override
     public Object clone() throws CloneNotSupportedException {
-        BaseLine baseLine= (BaseLine) super.clone();
+        BaseLine baseLine = (BaseLine) super.clone();
         baseLine.clear();
         return baseLine;
     }

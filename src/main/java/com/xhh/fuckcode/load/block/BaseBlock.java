@@ -21,6 +21,11 @@ public class BaseBlock extends BaseLine {
         super(type);
     }
 
+    @Override
+    public int run() {
+        return 0;
+    }
+
     public void addLine(BaseLine baseLine) {
         baseLines.add(baseLine);
     }

@@ -62,12 +62,12 @@ public class FuckedLoader {
             }
             lines.add(line.trim().split(" "));
         }
-        for(String[] strings:lines){
+        /*for(String[] strings:lines){
             for(String string:strings){
                 System.out.print(string+" ");
             }
             System.out.println();
-        }
+        }*/
         long endTime = System.currentTimeMillis();
         System.out.println("解析完成，耗时:" + (endTime - startTime) + "ms");
     }
