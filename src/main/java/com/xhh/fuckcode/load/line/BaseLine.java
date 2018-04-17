@@ -4,7 +4,7 @@ import com.xhh.fuckcode.load.Runtime;
 import com.xhh.fuckcode.load.block.BaseBlock;
 import com.xhh.fuckcode.load.block.FunBlock;
 
-public class BaseLine implements Cloneable {
+public class BaseLine {
 
     private int type;
     private int line;

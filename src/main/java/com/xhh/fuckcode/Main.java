@@ -3,6 +3,7 @@ package com.xhh.fuckcode;
 import com.xhh.fuckcode.load.FuckedLoader;
 import com.xhh.fuckcode.load.Runtime;
 import com.xhh.fuckcode.load.block.FunBlock;
+import com.xhh.fuckcode.load.block.WhileBlock;
 import com.xhh.fuckcode.load.line.*;
 
 import java.io.IOException;
@@ -38,7 +39,6 @@ public class Main {
         test.setParams(new Object[]{"v0"});
         test.setName("test");
         test.addLine(new InvLine("println", new Object[]{"v0"}));
-
         test.addLine(new MovLine("v3",200));
         test.addLine(new MovLine("v4",70.33));
         test.addLine(new MulLine("v2","v3","v4"));
@@ -47,6 +47,16 @@ public class Main {
         test.addLine(new AddLine("v1","v1","结果"));
         test.addLine(new AddLine("v2","v1","v2"));
         test.addLine(new InvLine("println", new Object[]{"v2"}));
+
+        test.addLine(new MovLine("v6",true));
+        test.addLine(new MovLine("v5",0));
+
+        WhileBlock whileBlock=new WhileBlock("v6");
+        whileBlock.addLine(new LogicLine("v6",1000000,"v5"));
+        whileBlock.addLine(new InvLine("println", new Object[]{"v2"}));
+        whileBlock.addLine(new AddLine("v5","v5",1));
+
+        test.addLine(whileBlock);
 
         funBlocks.add(test);
 

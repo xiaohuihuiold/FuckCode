@@ -5,7 +5,7 @@ import com.xhh.fuckcode.load.line.BaseLine;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class BaseBlock extends BaseLine {
+public class BaseBlock extends BaseLine{
 
     private int endSP;
     private int currSP;
@@ -79,5 +79,4 @@ public class BaseBlock extends BaseLine {
     public void setFields(HashMap<String, Object> fields) {
         this.fields = fields;
     }
-
 }
