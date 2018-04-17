@@ -80,22 +80,4 @@ public class BaseBlock extends BaseLine {
         this.fields = fields;
     }
 
-    @Override
-    public void clear() {
-        super.clear();
-        setCurrSP(0);
-        fields.clear();
-    }
-
-    @Override
-    public Object clone() throws CloneNotSupportedException {
-        BaseBlock bb = (BaseBlock) super.clone();
-        bb.clear();
-        ArrayList<BaseLine> bls = new ArrayList<>();
-        for (BaseLine baseLine : baseLines) {
-            bls.add((BaseLine) baseLine.clone());
-        }
-        bb.setBaseLines(bls);
-        return bb;
-    }
 }

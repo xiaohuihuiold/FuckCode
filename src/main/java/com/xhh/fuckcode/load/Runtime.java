@@ -11,6 +11,7 @@ import java.util.ArrayList;
 public class Runtime {
 
     private static Runtime INSTANCE;
+    public final static boolean DEBUG=false;
 
     private ArrayList<FunBlock> funBlocks = new ArrayList<>();
 
@@ -52,16 +53,23 @@ public class Runtime {
     }
 
     public Object callMethod(FunBlock funBlock, Object[] params) {
-        try {
-            FunBlock fb = (FunBlock) funBlock.clone();
-            fb.setParams(params);
-            fb.run();
-            return fb.getRet();
-        } catch (CloneNotSupportedException e) {
-            e.printStackTrace();
-            System.out.println("调用函数失败:" + e.getMessage());
+        FunBlock fb = new FunBlock(funBlock);
+        fb.setParams(params);
+        int resu = fb.run();
+        if (resu != 0) {
+            System.out.println("方法执行出错:" + funBlock.getName() + "(code:" + resu + ")");
             return null;
         }
+        return fb.getRet();
+    }
+
+    public FunBlock findMethod(String name, Object[] params) {
+        for (FunBlock funBlock : funBlocks) {
+            if (funBlock.isFun(name, params)) {
+                return funBlock;
+            }
+        }
+        return null;
     }
 
     public void setFunBlocks(ArrayList<FunBlock> funBlocks) {
@@ -70,13 +78,16 @@ public class Runtime {
 
     public static Object exec(String methodName, Object[] objects) {
         Object result = null;
-        Class[] classes = new Class[objects.length];
-        for (int i = 0; i < classes.length; i++) {
-            classes[i] = objects[i].getClass();
+        Class[] classes = new Class[]{};
+        if (objects != null) {
+            classes = new Class[objects.length];
+            for (int i = 0; i < classes.length; i++) {
+                classes[i] = objects[i].getClass();
+            }
         }
         try {
             Method method = SystemApi.class.getMethod(methodName, classes);
-            method.invoke(null, objects);
+            result = method.invoke(null, objects);
         } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
             e.printStackTrace();
             System.out.println("系统方法调用出错:" + e.getMessage());

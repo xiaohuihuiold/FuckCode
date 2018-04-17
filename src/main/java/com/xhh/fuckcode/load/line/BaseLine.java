@@ -2,12 +2,14 @@ package com.xhh.fuckcode.load.line;
 
 import com.xhh.fuckcode.load.Runtime;
 import com.xhh.fuckcode.load.block.BaseBlock;
+import com.xhh.fuckcode.load.block.FunBlock;
 
 public class BaseLine implements Cloneable {
 
     private int type;
-    private BaseBlock parent;
+    private int line;
     private int startSP;
+    private BaseBlock parent;
 
     public BaseLine() {
 
@@ -38,6 +40,14 @@ public class BaseLine implements Cloneable {
         this.parent = parent;
     }
 
+    public int getLine() {
+        return line;
+    }
+
+    public void setLine(int line) {
+        this.line = line;
+    }
+
     public int getStartSP() {
         return startSP;
     }
@@ -51,7 +61,7 @@ public class BaseLine implements Cloneable {
     }
 
     public Object exec(String name, Object[] objects) {
-        return Runtime.getInstance().exec(name, objects);
+        return Runtime.exec(name, objects);
     }
 
     public boolean addValue(String key, Object value) {
@@ -81,28 +91,25 @@ public class BaseLine implements Cloneable {
         }
     }
 
-    public Object getValue(String key) {
+    public Object getValue(Object key) {
+        if (key == null) return null;
+        if (!key.toString().startsWith("v")) {
+            return key;
+        }
         Object result = null;
         BaseBlock parent = getParent();
         while (parent != null) {
-            result = parent.getField(key);
+            result = parent.getField(key.toString());
             if (result == null) {
                 parent = parent.getParent();
                 continue;
             }
             break;
         }
+        if (result == null) {
+            return key;
+        }
         return result;
     }
 
-    public void clear() {
-
-    }
-
-    @Override
-    public Object clone() throws CloneNotSupportedException {
-        BaseLine baseLine = (BaseLine) super.clone();
-        baseLine.clear();
-        return baseLine;
-    }
 }

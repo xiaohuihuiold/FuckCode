@@ -1,5 +1,10 @@
 package com.xhh.fuckcode.load.block;
 
+import com.xhh.fuckcode.load.line.BaseLine;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+
 public class FunBlock extends BaseBlock {
 
     private String name;
@@ -14,10 +19,25 @@ public class FunBlock extends BaseBlock {
         super(type);
     }
 
+    public FunBlock(FunBlock funBlock) {
+        setParams(funBlock.getParams());
+        setName(funBlock.getName());
+        setRet(funBlock.getRet());
+        setBaseLines(funBlock.getBaseLines());
+        setEndSP(funBlock.getEndSP());
+        setLine(funBlock.getLine());
+        setStartSP(funBlock.getStartSP());
+        setType(funBlock.getType());
+    }
+
     @Override
     public int run() {
         for (int i = 0; i < lineSize(); i++) {
-            getLine(i).run();
+            getLine(i).setParent(this);
+            int resu = getLine(i).run();
+            if (resu != 0) {
+                return resu;
+            }
         }
         return 0;
     }
@@ -53,7 +73,7 @@ public class FunBlock extends BaseBlock {
     }
 
     public boolean isFun(String name, Object[] objects) {
-        if (!name.equals(name)) {
+        if (!this.name.equals(name)) {
             return false;
         }
         if ((objects == null && params != null) || (objects != null && params == null)) {
@@ -73,4 +93,5 @@ public class FunBlock extends BaseBlock {
         }
         return true;
     }
+
 }

@@ -3,16 +3,18 @@ package com.xhh.fuckcode;
 import com.xhh.fuckcode.load.FuckedLoader;
 import com.xhh.fuckcode.load.Runtime;
 import com.xhh.fuckcode.load.block.FunBlock;
+import com.xhh.fuckcode.load.line.AddLine;
 import com.xhh.fuckcode.load.line.InvLine;
 import com.xhh.fuckcode.load.line.MovLine;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class Main {
     public static void main(String[] args) {
         FuckedLoader fuckedLoader = FuckedLoader.getInstance();
-        Runtime runtime=Runtime.getInstance();
+        Runtime runtime = Runtime.getInstance();
         try {
             fuckedLoader.load(Main.class.getResourceAsStream("/test.js"));
             runtime.setFunBlocks(test());
@@ -23,19 +25,32 @@ public class Main {
         }
     }
 
-    public static ArrayList<FunBlock> test(){
-        ArrayList<FunBlock> funBlocks=new ArrayList<>();
+    public static ArrayList<FunBlock> test() {
+        ArrayList<FunBlock> funBlocks = new ArrayList<>();
 
-        FunBlock main=new FunBlock();
+        FunBlock main = new FunBlock();
         main.setName("main");
-        main.addLine(new MovLine("v0","小灰灰"));
-        main.addLine(new MovLine("v1","v0"));
-        main.addLine(new MovLine("v5","v1"));
-        main.addLine(new MovLine("v2","v5"));
-        main.addLine(new MovLine("v8","v2"));
-        main.addLine(new InvLine("print",new Object[]{"v5"}));
-        main.addLine(new InvLine("println",new Object[]{"v8"}));
+        main.addLine(new MovLine("v0", "\"小灰灰\""));
+        main.addLine(new MovLine("v1", "v0"));
+        main.addLine(new InvLine("println", new Object[]{"v1"}));
+        main.addLine(new InvLine("test", new Object[]{"v0"}));
         funBlocks.add(main);
+
+        FunBlock test = new FunBlock();
+        test.setParams(new Object[]{"v0"});
+        test.setName("test");
+        test.addLine(new InvLine("println", new Object[]{"v0"}));
+
+        test.addLine(new MovLine("v3",20.22));
+        test.addLine(new MovLine("v4",70.33));
+        test.addLine(new AddLine("v2","v3","v4"));
+        test.addLine(new AddLine("v1","v3","+"));
+        test.addLine(new AddLine("v1","v1","v4"));
+        test.addLine(new AddLine("v1","v1","结果"));
+        test.addLine(new AddLine("v2","v1","v2"));
+        test.addLine(new InvLine("println", new Object[]{"v2"}));
+
+        funBlocks.add(test);
 
         return funBlocks;
     }
