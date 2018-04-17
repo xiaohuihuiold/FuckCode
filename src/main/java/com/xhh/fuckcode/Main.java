@@ -3,9 +3,7 @@ package com.xhh.fuckcode;
 import com.xhh.fuckcode.load.FuckedLoader;
 import com.xhh.fuckcode.load.Runtime;
 import com.xhh.fuckcode.load.block.FunBlock;
-import com.xhh.fuckcode.load.line.AddLine;
-import com.xhh.fuckcode.load.line.InvLine;
-import com.xhh.fuckcode.load.line.MovLine;
+import com.xhh.fuckcode.load.line.*;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -41,10 +39,10 @@ public class Main {
         test.setName("test");
         test.addLine(new InvLine("println", new Object[]{"v0"}));
 
-        test.addLine(new MovLine("v3",20.22));
+        test.addLine(new MovLine("v3",200));
         test.addLine(new MovLine("v4",70.33));
-        test.addLine(new AddLine("v2","v3","v4"));
-        test.addLine(new AddLine("v1","v3","+"));
+        test.addLine(new MulLine("v2","v3","v4"));
+        test.addLine(new AddLine("v1","v3","*"));
         test.addLine(new AddLine("v1","v1","v4"));
         test.addLine(new AddLine("v1","v1","结果"));
         test.addLine(new AddLine("v2","v1","v2"));

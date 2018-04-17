@@ -11,7 +11,7 @@ import java.util.ArrayList;
 public class Runtime {
 
     private static Runtime INSTANCE;
-    public final static boolean DEBUG=false;
+    public static boolean DEBUG=false;
 
     private ArrayList<FunBlock> funBlocks = new ArrayList<>();
 
