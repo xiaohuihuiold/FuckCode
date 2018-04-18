@@ -9,6 +9,7 @@ public class InvLine extends BaseLine {
     private String name;
     private String retval;
     private Object[] objects;
+    private Object[] values;
 
     public InvLine() {
 
@@ -21,12 +22,14 @@ public class InvLine extends BaseLine {
     public InvLine(String name, Object[] objects) {
         this.name = name;
         this.objects = objects;
+        values=new Object[objects.length];
     }
 
     public InvLine(String name, String retval, Object[] objects) {
         this.name = name;
         this.retval = retval;
         this.objects = objects;
+        values=new Object[objects.length];
     }
 
     @Override
@@ -37,10 +40,10 @@ public class InvLine extends BaseLine {
         }
         Object ret = null;
         //System.out.println("执行:" + name + "方法");
-        if (Runtime.getInstance().findMethod(name, objects) != null) {
-            ret = Runtime.getInstance().callMethod(name, objects);
+        if (Runtime.getInstance().findMethod(name, values) != null) {
+            ret = Runtime.getInstance().callMethod(name, values);
         } else {
-            ret = exec(name, objects);
+            ret = exec(name, values);
         }
         if (retval != null) {
             Object result = getValue(ret);
@@ -55,8 +58,8 @@ public class InvLine extends BaseLine {
         }
         for (int i = 0; i < objects.length; i++) {
             Object temp = objects[i];
-            objects[i] = getValue(objects[i]);
-            if (temp == objects[i]&&temp.toString().startsWith("v")) {
+            values[i] = getValue(objects[i]);
+            if (temp == values[i]&&temp.toString().startsWith("v")) {
                 System.out.println("找不到参数:"+temp);
                 return 1;
             }

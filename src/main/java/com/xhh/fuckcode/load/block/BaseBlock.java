@@ -1,11 +1,13 @@
 package com.xhh.fuckcode.load.block;
 
+import com.xhh.fuckcode.load.Runtime;
 import com.xhh.fuckcode.load.line.BaseLine;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 
-public class BaseBlock extends BaseLine{
+public class BaseBlock extends BaseLine {
 
     private int endSP;
     private int currSP;
@@ -30,7 +32,7 @@ public class BaseBlock extends BaseLine{
         return baseLines.get(index);
     }
 
-    public int lineSize(){
+    public int lineSize() {
         return baseLines.size();
     }
 
