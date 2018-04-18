@@ -25,9 +25,9 @@ public class Main {
         }
     }
 
-    public String pr(String te) {
+    public static void pr(String a) {
         System.out.println("HelloWorld!");
-        return te+"mua";
+        return;
     }
 
     public static ArrayList<FunBlock> test() {
@@ -38,10 +38,8 @@ public class Main {
         main.addLine(new MovLine("v0", "@小灰灰"));
         main.addLine(new MovLine("v1", "v0"));
         main.addLine(new InvLine("println", new Object[]{"v1"}));
-        main.addLine(new InsLine("v2", "$com.xhh.fuckcode.Main"));
-        main.addLine(new InvLine("v2", "getClass","v2", null, false));
-        main.addLine(new InvLine("v2", "toString","v2", null, false));
-        main.addLine(new InvLine("println", new Object[]{"v2"}));
+        main.addLine(new MovLine("v2", "$com.xhh.fuckcode.Main"));
+        main.addLine(new InvLine("v2", "pr","v2", new Object[]{"v0"}, false));
         main.addLine(new InvLine("test", new Object[]{"v0"}));
         funBlocks.add(main);
 

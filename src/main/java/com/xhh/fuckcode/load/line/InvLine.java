@@ -36,19 +36,19 @@ public class InvLine extends BaseLine {
         values = new Object[objects.length];
     }
 
-    public InvLine(Object obj, String name, Object[] objects,boolean temp) {
+    public InvLine(Object obj, String name, Object[] objects, boolean temp) {
         this.obj = obj;
         this.name = name;
         this.objects = objects;
-        if(objects!=null)values = new Object[objects.length];
+        if (objects != null) values = new Object[objects.length];
     }
 
-    public InvLine(Object obj, String name, String retval, Object[] objects,boolean temp) {
+    public InvLine(Object obj, String name, String retval, Object[] objects, boolean temp) {
         this.obj = obj;
         this.name = name;
         this.retval = retval;
         this.objects = objects;
-        if(objects!=null)values = new Object[objects.length];
+        if (objects != null) values = new Object[objects.length];
     }
 
     @Override
@@ -71,16 +71,28 @@ public class InvLine extends BaseLine {
             try {
                 Method method = null;
                 if (values == null) {
-                    method = result.getClass().getMethod(name);
+                    if (result.toString().startsWith("$")) {
+                        method = Class.forName(result.toString().substring(1, result.toString().length())).getMethod(name);
+                    } else {
+                        method = result.getClass().getMethod(name);
+                    }
                 } else {
                     Class[] classes = new Class[values.length];
                     for (int i = 0; i < classes.length; i++) {
                         classes[i] = values[i].getClass();
                     }
-                    method = result.getClass().getMethod(name, classes);
+                    if (result.toString().startsWith("$")) {
+                        method = Class.forName(result.toString().substring(1, result.toString().length())).getMethod(name, classes);
+                    } else {
+                        method = result.getClass().getMethod(name, classes);
+                    }
                 }
-                ret = method.invoke(result, values);
-            } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
+                if (result.toString().startsWith("$")) {
+                    ret = method.invoke(null, values);
+                } else {
+                    ret = method.invoke(result, values);
+                }
+            } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException | ClassNotFoundException e) {
                 e.printStackTrace();
                 System.out.println("执行方法出错:" + e.getMessage());
                 return 1;
