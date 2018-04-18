@@ -42,27 +42,27 @@ public class Main {
         test.addLine(new InvLine("println", new Object[]{"v0"}));
         test.addLine(new MovLine("v3", 200));
         test.addLine(new MovLine("v4", 70.33));
-        test.addLine(new MulLine("v2", "v3", "v4"));
-        test.addLine(new AddLine("v1", "v3", "*"));
-        test.addLine(new AddLine("v1", "v1", "v4"));
-        test.addLine(new AddLine("v1", "v1", "@结果"));
-        test.addLine(new AddLine("v2", "v1", "v2"));
+        test.addLine(new DataLine(DataLine.TYPE.MUL, "v2", "v3", "v4"));
+        test.addLine(new DataLine(DataLine.TYPE.ADD, "v1", "v3", "*"));
+        test.addLine(new DataLine(DataLine.TYPE.ADD, "v1", "v1", "v4"));
+        test.addLine(new DataLine(DataLine.TYPE.ADD, "v1", "v1", "@结果"));
+        test.addLine(new DataLine(DataLine.TYPE.ADD, "v2", "v1", "v2"));
         test.addLine(new InvLine("println", new Object[]{"v2"}));
 
         test.addLine(new MovLine("v6", true));
         test.addLine(new MovLine("v5", 0));
 
         WhileBlock whileBlock = new WhileBlock("v6");
-        whileBlock.addLine(new LogicLine("v6", 1000000, "v5"));
-       // whileBlock.addLine(new AddLine("v2", "@v5的值:", "v5"));
+        whileBlock.addLine(new DataLine(DataLine.TYPE.ADD, "v2", "@v5的值:", "v5"));
 
-        whileBlock.addLine(new LogicLine("v9","v5",999999));
-        LogicBlock logicBlock=new LogicBlock("v9");
-        logicBlock.addLine(new InvLine("println", new Object[]{"@test"}));
+        whileBlock.addLine(new LogicLine(LogicLine.TYPE.LESS_EQUAL, "v9", "v5", 50));
+        LogicBlock logicBlock = new LogicBlock("v9");
+        logicBlock.addLine(new InvLine("println", new Object[]{"v2"}));
         whileBlock.addLine(logicBlock);
 
         //whileBlock.addLine(new InvLine("println", new Object[]{"v2"}));
-        whileBlock.addLine(new AddLine("v5", "v5", 1));
+        whileBlock.addLine(new DataLine(DataLine.TYPE.ADD, "v5", "v5", 1));
+        whileBlock.addLine(new LogicLine(LogicLine.TYPE.GREATER_EQUAL, "v6", 10, "v5"));
 
         test.addLine(whileBlock);
 
