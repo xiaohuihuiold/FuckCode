@@ -25,6 +25,11 @@ public class Main {
         }
     }
 
+    public String pr(String te) {
+        System.out.println("HelloWorld!");
+        return te+"mua";
+    }
+
     public static ArrayList<FunBlock> test() {
         ArrayList<FunBlock> funBlocks = new ArrayList<>();
 
@@ -33,6 +38,10 @@ public class Main {
         main.addLine(new MovLine("v0", "@小灰灰"));
         main.addLine(new MovLine("v1", "v0"));
         main.addLine(new InvLine("println", new Object[]{"v1"}));
+        main.addLine(new InsLine("v2", "$com.xhh.fuckcode.Main"));
+        main.addLine(new InvLine("v2", "getClass","v2", null, false));
+        main.addLine(new InvLine("v2", "toString","v2", null, false));
+        main.addLine(new InvLine("println", new Object[]{"v2"}));
         main.addLine(new InvLine("test", new Object[]{"v0"}));
         funBlocks.add(main);
 
