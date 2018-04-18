@@ -3,6 +3,7 @@ package com.xhh.fuckcode;
 import com.xhh.fuckcode.load.FuckedLoader;
 import com.xhh.fuckcode.load.Runtime;
 import com.xhh.fuckcode.load.block.FunBlock;
+import com.xhh.fuckcode.load.block.LogicBlock;
 import com.xhh.fuckcode.load.block.WhileBlock;
 import com.xhh.fuckcode.load.line.*;
 
@@ -52,9 +53,15 @@ public class Main {
         test.addLine(new MovLine("v5", 0));
 
         WhileBlock whileBlock = new WhileBlock("v6");
-        whileBlock.addLine(new LogicLine("v6", 5, "v5"));
-        whileBlock.addLine(new AddLine("v2", "@v5的值:", "v5"));
-        whileBlock.addLine(new InvLine("println", new Object[]{"v2"}));
+        whileBlock.addLine(new LogicLine("v6", 1000000, "v5"));
+       // whileBlock.addLine(new AddLine("v2", "@v5的值:", "v5"));
+
+        whileBlock.addLine(new LogicLine("v9","v5",999999));
+        LogicBlock logicBlock=new LogicBlock("v9");
+        logicBlock.addLine(new InvLine("println", new Object[]{"@test"}));
+        whileBlock.addLine(logicBlock);
+
+        //whileBlock.addLine(new InvLine("println", new Object[]{"v2"}));
         whileBlock.addLine(new AddLine("v5", "v5", 1));
 
         test.addLine(whileBlock);

@@ -1,21 +1,19 @@
 package com.xhh.fuckcode.load.block;
 
-import java.util.HashMap;
-
-public class WhileBlock extends BaseBlock{
+public class LogicBlock extends BaseBlock {
 
     private Object key;
     private Boolean logic = false;
 
-    public WhileBlock() {
+    public LogicBlock() {
 
     }
 
-    public WhileBlock(int type) {
+    public LogicBlock(int type) {
         super(type);
     }
 
-    public WhileBlock(Object key) {
+    public LogicBlock(Object key) {
         this.key = key;
     }
 
@@ -25,7 +23,7 @@ public class WhileBlock extends BaseBlock{
         if (resu != 0) {
             return resu;
         }
-        while (logic) {
+        if (logic) {
             for (int i = 0; i < lineSize(); i++) {
                 getLine(i).setParent(this);
                 resu = getLine(i).run();
@@ -34,7 +32,7 @@ public class WhileBlock extends BaseBlock{
                     return resu;
                 }
             }
-            if (resu == 2) break;
+            if (resu == 2) return 0;
             resu = loadObject();
             if (resu != 0) {
                 return resu;
