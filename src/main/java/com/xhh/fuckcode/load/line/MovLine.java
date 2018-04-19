@@ -1,6 +1,7 @@
 package com.xhh.fuckcode.load.line;
 
 import com.xhh.fuckcode.load.Runtime;
+import com.xhh.fuckcode.load.block.FunBlock;
 
 public class MovLine extends BaseLine {
 
@@ -27,9 +28,8 @@ public class MovLine extends BaseLine {
             System.out.println("找不到参数:" + result + "(line:" + getLine() + ")");
             return 1;
         }
-        if(Runtime.DEBUG)System.out.println("复制" + value + "(" + result + ")" + "到" + field);
+        if(Runtime.DEBUG)System.out.println((getParent() instanceof FunBlock?((FunBlock)getParent()).getName():""+"复制") + value + "(" + result + ")" + "到" + field);
         updateValue(field, result);
-
         return 0;
     }
 

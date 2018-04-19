@@ -60,7 +60,7 @@ public class Runtime {
             System.out.println("方法执行出错:" + funBlock.getName() + "(code:" + resu + ")");
             return null;
         }
-        return fb.getRet();
+        return fb.getReturn();
     }
 
     public FunBlock findMethod(String name, Object[] params) {

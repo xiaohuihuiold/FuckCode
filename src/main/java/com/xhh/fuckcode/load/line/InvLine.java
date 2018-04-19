@@ -94,7 +94,7 @@ public class InvLine extends BaseLine {
                 }
             } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException | ClassNotFoundException e) {
                 e.printStackTrace();
-                System.out.println("执行方法出错:" + e.getMessage());
+                System.out.println("执行方法出错:" + e.getMessage()+":(line:"+getLine()+")");
                 return 1;
             }
         } else if (Runtime.getInstance().findMethod(name, values) != null) {
@@ -117,7 +117,7 @@ public class InvLine extends BaseLine {
             Object temp = objects[i];
             values[i] = getValue(objects[i]);
             if (temp == values[i] && temp.toString().startsWith("v")) {
-                System.out.println("找不到参数:" + temp);
+                System.out.println("找不到参数:" + temp+":(line:"+getLine()+")");
                 return 1;
             }
         }

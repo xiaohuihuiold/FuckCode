@@ -121,6 +121,7 @@ public class FuckedLoader {
                     } else {
                         logicBlock = new LogicBlock(logTemp);
                     }
+                    logicBlock.setLine(lineIndex);
                     i=loadBlock(logicBlock, i + 1);
                     funBlock.addLine(logicBlock);
                     break;
@@ -135,6 +136,7 @@ public class FuckedLoader {
                     } else {
                         whileBlock = new WhileBlock(whileTemp);
                     }
+                    whileBlock.setLine(lineIndex);
                     i=loadBlock(whileBlock, i + 1);
                     funBlock.addLine(whileBlock);
                     break;
@@ -143,6 +145,7 @@ public class FuckedLoader {
                 case RunUtil.CTRL_MOV:
                     Object movRight = loadObject(strs[2]);
                     MovLine movLine = new MovLine(strs[1], movRight);
+                    movLine.setLine(lineIndex);
                     funBlock.addLine(movLine);
                     break;
                 case RunUtil.CTRL_LOGIC:
@@ -182,6 +185,7 @@ public class FuckedLoader {
                     } else {
                         logicLine = new LogicLine(logicType, strs[1], logicLeft, logicRight);
                     }
+                    logicLine.setLine(lineIndex);
                     funBlock.addLine(logicLine);
                     break;
                 case RunUtil.CTRL_DATA:
@@ -207,11 +211,13 @@ public class FuckedLoader {
                             break;
                     }
                     DataLine dataLine = new DataLine(dataType, strs[1], dataLeft, dataRight);
+                    dataLine.setLine(lineIndex);
                     funBlock.addLine(dataLine);
                     break;
                 case RunUtil.CTRL_INV:
                     if (strs.length == 2) {
                         InvLine invLine = new InvLine(strs[1], null);
+                        invLine.setLine(lineIndex);
                         funBlock.addLine(invLine);
                     } else if (strs.length == 3) {
                         Object[] insRight = null;
@@ -219,6 +225,7 @@ public class FuckedLoader {
                             insRight = loadObjects(strs[2]);
                         }
                         InvLine invLine = new InvLine(strs[1], insRight);
+                        invLine.setLine(lineIndex);
                         funBlock.addLine(invLine);
                     } else if (strs.length == 4) {
                         Object[] insRight = null;
@@ -226,6 +233,7 @@ public class FuckedLoader {
                             insRight = loadObjects(strs[3]);
                         }
                         InvLine invLine = new InvLine(strs[1], strs[2], insRight);
+                        invLine.setLine(lineIndex);
                         funBlock.addLine(invLine);
                     } else if (strs.length == 5) {
                         Object[] insRight = null;
@@ -233,6 +241,7 @@ public class FuckedLoader {
                             insRight = loadObjects(strs[3]);
                         }
                         InvLine invLine = new InvLine(loadObject(strs[1]), strs[2], insRight, true);
+                        invLine.setLine(lineIndex);
                         funBlock.addLine(invLine);
                     } else if (strs.length == 6) {
                         Object[] insRight = null;
@@ -240,6 +249,7 @@ public class FuckedLoader {
                             insRight = loadObjects(strs[4]);
                         }
                         InvLine invLine = new InvLine(loadObject(strs[1]), strs[2], strs[3], insRight, true);
+                        invLine.setLine(lineIndex);
                         funBlock.addLine(invLine);
                     }
                     break;
@@ -250,6 +260,7 @@ public class FuckedLoader {
                         insRight = loadObjects(strs[3]);
                     }
                     InsLine insLine = new InsLine(strs[1], insLeft, insRight);
+                    insLine.setLine(lineIndex);
                     funBlock.addLine(insLine);
                     break;
             }
@@ -278,6 +289,7 @@ public class FuckedLoader {
                     } else {
                         logicBlock = new LogicBlock(logTemp);
                     }
+                    logicBlock.setLine(lineIndex);
                     i=loadBlock(logicBlock, i + 1);
                     funBlock.addLine(logicBlock);
                     break;
@@ -292,6 +304,7 @@ public class FuckedLoader {
                     } else {
                         whileBlock = new WhileBlock(whileTemp);
                     }
+                    whileBlock.setLine(lineIndex);
                     i=loadBlock(whileBlock, i + 1);
                     funBlock.addLine(whileBlock);
                     break;
@@ -300,6 +313,7 @@ public class FuckedLoader {
                 case RunUtil.CTRL_MOV:
                     Object movRight = loadObject(strs[2]);
                     MovLine movLine = new MovLine(strs[1], movRight);
+                    movLine.setLine(lineIndex);
                     funBlock.addLine(movLine);
                     break;
                 case RunUtil.CTRL_LOGIC:
@@ -339,6 +353,7 @@ public class FuckedLoader {
                     } else {
                         logicLine = new LogicLine(logicType, strs[1], logicLeft, logicRight);
                     }
+                    logicLine.setLine(lineIndex);
                     funBlock.addLine(logicLine);
                     break;
                 case RunUtil.CTRL_DATA:
@@ -364,11 +379,13 @@ public class FuckedLoader {
                             break;
                     }
                     DataLine dataLine = new DataLine(dataType, strs[1], dataLeft, dataRight);
+                    dataLine.setLine(lineIndex);
                     funBlock.addLine(dataLine);
                     break;
                 case RunUtil.CTRL_INV:
                     if (strs.length == 2) {
                         InvLine invLine = new InvLine(strs[1], null);
+                        invLine.setLine(lineIndex);
                         funBlock.addLine(invLine);
                     } else if (strs.length == 3) {
                         Object[] insRight = null;
@@ -376,6 +393,7 @@ public class FuckedLoader {
                             insRight = loadObjects(strs[2]);
                         }
                         InvLine invLine = new InvLine(strs[1], insRight);
+                        invLine.setLine(lineIndex);
                         funBlock.addLine(invLine);
                     } else if (strs.length == 4) {
                         Object[] insRight = null;
@@ -383,6 +401,7 @@ public class FuckedLoader {
                             insRight = loadObjects(strs[3]);
                         }
                         InvLine invLine = new InvLine(strs[1], strs[2], insRight);
+                        invLine.setLine(lineIndex);
                         funBlock.addLine(invLine);
                     } else if (strs.length == 5) {
                         Object[] insRight = null;
@@ -390,6 +409,7 @@ public class FuckedLoader {
                             insRight = loadObjects(strs[3]);
                         }
                         InvLine invLine = new InvLine(loadObject(strs[1]), strs[2], insRight, true);
+                        invLine.setLine(lineIndex);
                         funBlock.addLine(invLine);
                     } else if (strs.length == 6) {
                         Object[] insRight = null;
@@ -397,6 +417,7 @@ public class FuckedLoader {
                             insRight = loadObjects(strs[4]);
                         }
                         InvLine invLine = new InvLine(loadObject(strs[1]), strs[2], strs[3], insRight, true);
+                        invLine.setLine(lineIndex);
                         funBlock.addLine(invLine);
                     }
                     break;
@@ -407,6 +428,7 @@ public class FuckedLoader {
                         insRight = loadObjects(strs[3]);
                     }
                     InsLine insLine = new InsLine(strs[1], insLeft, insRight);
+                    insLine.setLine(lineIndex);
                     funBlock.addLine(insLine);
                     break;
             }

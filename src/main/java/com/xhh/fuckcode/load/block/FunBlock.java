@@ -64,6 +64,11 @@ public class FunBlock extends BaseBlock {
         }
     }
 
+    public Object getReturn() {
+        if (ret == null) return null;
+        return getField(ret.toString());
+    }
+
     public Object getRet() {
         return ret;
     }

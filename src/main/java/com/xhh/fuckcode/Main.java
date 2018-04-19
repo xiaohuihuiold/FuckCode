@@ -25,9 +25,9 @@ public class Main {
         }
     }
 
-    public void pr(String a) {
+    public String pr() {
         System.out.println("HelloWorld!");
-        return;
+        return "测试";
     }
 
     public static ArrayList<FunBlock> test() {

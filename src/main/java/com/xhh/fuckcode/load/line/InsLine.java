@@ -62,7 +62,7 @@ public class InsLine extends BaseLine {
             updateValue(field, obj);
         } catch (ClassNotFoundException | NoSuchMethodException | IllegalAccessException | InstantiationException | InvocationTargetException e) {
             e.printStackTrace();
-            System.out.println("无法实例化:" + e.getMessage());
+            System.out.println("无法实例化:" + e.getMessage()+":(line:"+getLine()+")");
             return 1;
         }
 
@@ -77,7 +77,7 @@ public class InsLine extends BaseLine {
             Object temp = objects[i];
             values[i] = getValue(objects[i]);
             if (temp == values[i] && temp.toString().startsWith("v")) {
-                System.out.println("找不到参数:" + temp);
+                System.out.println("找不到参数:" + temp+":(line:"+getLine()+")");
                 return 1;
             }
         }
