@@ -14,5 +14,10 @@
         .line 8
         .inv println "30小于20"
     .end-if
+    .while v2
+    .data v1 v1 + 1
+    .inv println v1
+    .logic v2 30 > v1
+    .end-while
     .line 10
 .end-fun main

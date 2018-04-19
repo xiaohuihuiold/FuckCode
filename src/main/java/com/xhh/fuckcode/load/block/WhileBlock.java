@@ -2,10 +2,11 @@ package com.xhh.fuckcode.load.block;
 
 import java.util.HashMap;
 
-public class WhileBlock extends BaseBlock{
+public class WhileBlock extends BaseBlock {
 
     private Object key;
     private Boolean logic = false;
+    private boolean no;
 
     public WhileBlock() {
 
@@ -16,7 +17,12 @@ public class WhileBlock extends BaseBlock{
     }
 
     public WhileBlock(Object key) {
+        this(key, false);
+    }
+
+    public WhileBlock(Object key, boolean no) {
         this.key = key;
+        this.no = no;
     }
 
     @Override
@@ -24,6 +30,11 @@ public class WhileBlock extends BaseBlock{
         int resu = loadObject();
         if (resu != 0) {
             return resu;
+        }
+        if (no && logic == false) {
+            logic = true;
+        } else if (no && logic) {
+            logic = false;
         }
         while (logic) {
             for (int i = 0; i < lineSize(); i++) {
