@@ -9,14 +9,13 @@ import com.xhh.fuckcode.load.line.*;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Date;
 
 public class Main {
     public static void main(String[] args) {
         FuckedLoader fuckedLoader = FuckedLoader.getInstance();
         Runtime runtime = Runtime.getInstance();
         try {
-            fuckedLoader.load(Main.class.getResourceAsStream("/test.js"));
+            fuckedLoader.load(Main.class.getResourceAsStream("/Fibonacci.js"));
             //runtime.setFunBlocks(test());
             runtime.run();
         } catch (IOException e) {
