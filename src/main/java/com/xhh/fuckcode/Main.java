@@ -17,7 +17,7 @@ public class Main {
         Runtime runtime = Runtime.getInstance();
         try {
             fuckedLoader.load(Main.class.getResourceAsStream("/test.js"));
-            runtime.setFunBlocks(test());
+            //runtime.setFunBlocks(test());
             runtime.run();
         } catch (IOException e) {
             e.printStackTrace();

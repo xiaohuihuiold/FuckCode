@@ -9,7 +9,7 @@ public class KeyUtil {
     public static final String FUN_END = ".end-fun";
     //public static final String FUN_RET = ".ret";
 
-    public static final String LOGIC = ".lf";
+    public static final String LOGIC = ".if";
     public static final String LOGIC_END = ".end-if";
 
     public static final String WHILE = ".while";
