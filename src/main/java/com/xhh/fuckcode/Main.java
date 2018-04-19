@@ -25,7 +25,7 @@ public class Main {
         }
     }
 
-    public static void pr(String a) {
+    public void pr(String a) {
         System.out.println("HelloWorld!");
         return;
     }
@@ -38,15 +38,14 @@ public class Main {
         main.addLine(new MovLine("v0", "@小灰灰"));
         main.addLine(new MovLine("v1", "v0"));
         main.addLine(new InvLine("println", new Object[]{"v1"}));
-        main.addLine(new MovLine("v2", "$com.xhh.fuckcode.Main"));
-        main.addLine(new InvLine("v2", "pr","v2", new Object[]{"v0"}, false));
-        main.addLine(new InvLine("test", new Object[]{"v0"}));
+        main.addLine(new InsLine("v2", "$com.xhh.fuckcode.Main"));
+        main.addLine(new InvLine("test", new Object[]{"v2"}));
         funBlocks.add(main);
 
         FunBlock test = new FunBlock();
         test.setParams(new Object[]{"v0"});
         test.setName("test");
-        test.addLine(new InvLine("println", new Object[]{"v0"}));
+        test.addLine(new InvLine("v0", "pr", new Object[]{"@test"}, false));
         test.addLine(new MovLine("v3", 200));
         test.addLine(new MovLine("v4", 70.33));
         test.addLine(new DataLine(DataLine.TYPE.MUL, "v2", "v3", "v4"));

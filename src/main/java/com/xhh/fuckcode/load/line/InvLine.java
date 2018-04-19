@@ -26,14 +26,14 @@ public class InvLine extends BaseLine {
     public InvLine(String name, Object[] objects) {
         this.name = name;
         this.objects = objects;
-        values = new Object[objects.length];
+        if (objects != null) values = new Object[objects.length];
     }
 
     public InvLine(String name, String retval, Object[] objects) {
         this.name = name;
         this.retval = retval;
         this.objects = objects;
-        values = new Object[objects.length];
+        if (objects != null) values = new Object[objects.length];
     }
 
     public InvLine(Object obj, String name, Object[] objects, boolean temp) {

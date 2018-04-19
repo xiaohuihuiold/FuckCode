@@ -85,12 +85,12 @@ public class FunBlock extends BaseBlock {
         }
         if (objects.length != params.length) {
             return false;
-        }
+        }/*
         for (int i = 0; i < objects.length; i++) {
             if (objects[i].getClass() != params[i].getClass()) {
                 return false;
             }
-        }
+        }*/
         return true;
     }
 

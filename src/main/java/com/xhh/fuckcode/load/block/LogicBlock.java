@@ -4,6 +4,7 @@ public class LogicBlock extends BaseBlock {
 
     private Object key;
     private Boolean logic = false;
+    private boolean no;
 
     public LogicBlock() {
 
@@ -14,7 +15,12 @@ public class LogicBlock extends BaseBlock {
     }
 
     public LogicBlock(Object key) {
+        this(key, false);
+    }
+
+    public LogicBlock(Object key, boolean no) {
         this.key = key;
+        this.no = no;
     }
 
     @Override
@@ -22,6 +28,11 @@ public class LogicBlock extends BaseBlock {
         int resu = loadObject();
         if (resu != 0) {
             return resu;
+        }
+        if (no && logic == false) {
+            logic = true;
+        } else if (no && logic) {
+            logic = false;
         }
         if (logic) {
             for (int i = 0; i < lineSize(); i++) {
