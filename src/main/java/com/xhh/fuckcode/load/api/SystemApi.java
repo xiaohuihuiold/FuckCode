@@ -8,7 +8,7 @@ public class SystemApi {
         System.out.print(text);
     }
 
-    public static void print(Integer text) {
+    public static void print(Long text) {
         System.out.print(text);
     }
 
@@ -27,7 +27,7 @@ public class SystemApi {
         System.out.println(text);
     }
 
-    public static void println(Integer text) {
+    public static void println(Long text) {
         System.out.println(text);
     }
 

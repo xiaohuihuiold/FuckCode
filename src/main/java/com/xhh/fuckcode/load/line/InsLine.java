@@ -30,7 +30,7 @@ public class InsLine extends BaseLine {
         this.field = field;
         this.value = value;
         this.objects = objects;
-        if(objects!=null)values=new Object[objects.length];
+        if (objects != null) values = new Object[objects.length];
     }
 
     @Override
@@ -55,6 +55,12 @@ public class InsLine extends BaseLine {
                 Class[] classes = new Class[values.length];
                 for (int i = 0; i < classes.length; i++) {
                     classes[i] = values[i].getClass();
+                    if (values[i] instanceof String) {
+                        if (((String) values[i]).startsWith("@")) {
+                            String str = (String) values[i];
+                            values[i] = str.substring(1, str.length());
+                        }
+                    }
                 }
                 constructor = clazz.getConstructor(classes);
             }
@@ -62,7 +68,7 @@ public class InsLine extends BaseLine {
             updateValue(field, obj);
         } catch (ClassNotFoundException | NoSuchMethodException | IllegalAccessException | InstantiationException | InvocationTargetException e) {
             e.printStackTrace();
-            System.out.println("无法实例化:" + e.getMessage()+":(line:"+getLine()+")");
+            System.out.println("无法实例化:" + e.getMessage() + ":(line:" + getLine() + ")");
             return 1;
         }
 
@@ -77,7 +83,7 @@ public class InsLine extends BaseLine {
             Object temp = objects[i];
             values[i] = getValue(objects[i]);
             if (temp == values[i] && temp.toString().startsWith("v")) {
-                System.out.println("找不到参数:" + temp+":(line:"+getLine()+")");
+                System.out.println("找不到参数:" + temp + ":(line:" + getLine() + ")");
                 return 1;
             }
         }

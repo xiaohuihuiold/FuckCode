@@ -70,22 +70,53 @@ public class InvLine extends BaseLine {
         if (result != null) {
             try {
                 Method method = null;
+                Class main = null;
+                if (result.toString().startsWith("$")) {
+                    main = Class.forName(result.toString().substring(1, result.toString().length()));
+                } else {
+                    main = result.getClass();
+                }
                 if (values == null) {
-                    if (result.toString().startsWith("$")) {
-                        method = Class.forName(result.toString().substring(1, result.toString().length())).getMethod(name);
-                    } else {
-                        method = result.getClass().getMethod(name);
-                    }
+                    method = main.getMethod(name);
                 } else {
                     Class[] classes = new Class[values.length];
                     for (int i = 0; i < classes.length; i++) {
                         classes[i] = values[i].getClass();
+                        if (values[i] instanceof String) {
+                            if (((String) values[i]).startsWith("@")) {
+                                String str = (String) values[i];
+                                values[i] = str.substring(1, str.length());
+                            }
+                        }
                     }
-                    if (result.toString().startsWith("$")) {
-                        method = Class.forName(result.toString().substring(1, result.toString().length())).getMethod(name, classes);
-                    } else {
-                        method = result.getClass().getMethod(name, classes);
+                    for (Method met : main.getMethods()) {
+                        if (met.getName().equals(name) && met.getParameterCount() == values.length) {
+                            Class[] metclass = met.getParameterTypes();
+                            boolean isAss = true;
+                            for (int i = 0; i < metclass.length; i++) {
+                                if (!metclass[i].isAssignableFrom(classes[i])) {
+                                    if ((metclass[i] == long.class || metclass[i] == Long.class) && classes[i] == Integer.class) {
+                                        continue;
+                                    } else if ((metclass[i] == Float.class || metclass[i] == float.class) && (classes[i] == Float.class || classes[i] == Integer.class || classes[i] == Long.class)) {
+                                        continue;
+                                    } else if ((metclass[i] == Double.class || metclass[i] == double.class) && (classes[i] == Double.class || classes[i] == Integer.class || classes[i] == Long.class)) {
+                                        continue;
+                                    }
+                                    isAss = false;
+                                    break;
+                                }
+                            }
+                            if (!isAss) {
+                                continue;
+                            }
+                            method = met;
+                            break;
+                        }
                     }
+                }
+                if (method == null) {
+                    System.out.println("找不到方法:" + name);
+                    return 1;
                 }
                 if (result.toString().startsWith("$")) {
                     ret = method.invoke(null, values);
@@ -94,7 +125,7 @@ public class InvLine extends BaseLine {
                 }
             } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException | ClassNotFoundException e) {
                 e.printStackTrace();
-                System.out.println("执行方法出错:" + e.getMessage()+":(line:"+getLine()+")");
+                System.out.println("执行方法出错:" + e.getMessage() + ":(line:" + getLine() + ")");
                 return 1;
             }
         } else if (Runtime.getInstance().findMethod(name, values) != null) {
@@ -117,7 +148,7 @@ public class InvLine extends BaseLine {
             Object temp = objects[i];
             values[i] = getValue(objects[i]);
             if (temp == values[i] && temp.toString().startsWith("v")) {
-                System.out.println("找不到参数:" + temp+":(line:"+getLine()+")");
+                System.out.println("找不到参数:" + temp + ":(line:" + getLine() + ")");
                 return 1;
             }
         }

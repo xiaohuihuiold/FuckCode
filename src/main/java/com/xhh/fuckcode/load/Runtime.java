@@ -11,7 +11,7 @@ import java.util.ArrayList;
 public class Runtime {
 
     private static Runtime INSTANCE;
-    public static boolean DEBUG=false;
+    public static boolean DEBUG = false;
 
     private ArrayList<FunBlock> funBlocks = new ArrayList<>();
 
@@ -83,6 +83,12 @@ public class Runtime {
             classes = new Class[objects.length];
             for (int i = 0; i < classes.length; i++) {
                 classes[i] = objects[i].getClass();
+                if (objects[i] instanceof String) {
+                    if (((String) objects[i]).startsWith("@")) {
+                        String str = (String) objects[i];
+                        objects[i] = str.substring(1, str.length());
+                    }
+                }
             }
         }
         try {
