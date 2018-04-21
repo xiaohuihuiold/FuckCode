@@ -7,6 +7,7 @@ import com.xhh.fuckcode.load.block.FunBlock;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Runtime {
 
@@ -79,26 +80,65 @@ public class Runtime {
     public static Object exec(String methodName, Object[] objects) {
         Object result = null;
         Class[] classes = new Class[]{};
-        if (objects != null) {
-            classes = new Class[objects.length];
-            for (int i = 0; i < classes.length; i++) {
-                classes[i] = objects[i].getClass();
-                if (objects[i] instanceof String) {
-                    if (((String) objects[i]).startsWith("@")) {
-                        String str = (String) objects[i];
-                        objects[i] = str.substring(1, str.length());
-                    }
-                }
-            }
-        }
+        Method method = null;
+
         try {
-            Method method = SystemApi.class.getMethod(methodName, classes);
-            result = method.invoke(null, objects);
-        } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
+            if (objects != null) {
+                classes = getClasses(objects);
+                method = getMethod(methodName, SystemApi.class, classes);
+                result = method.invoke(null, objects);
+            } else {
+                method = SystemApi.class.getMethod(methodName);
+                result = method.invoke(null);
+            }
+        } catch (Exception e) {
             e.printStackTrace();
             System.out.println("系统方法调用出错:" + e.getMessage());
         }
         return result;
+    }
+
+    public static Class[] getClasses(Object[] values) {
+        Class[] classes = new Class[values.length];
+        for (int i = 0; i < classes.length; i++) {
+            classes[i] = values[i].getClass();
+            if (values[i] instanceof String) {
+                if (((String) values[i]).startsWith("@")) {
+                    String str = (String) values[i];
+                    values[i] = str.substring(1, str.length());
+                }
+            }
+        }
+        return classes;
+    }
+
+    public static Method getMethod(String name, Class src, Class[] val) {
+        Method method = null;
+        for (Method met : src.getMethods()) {
+            if (met.getName().equals(name) && met.getParameterCount() == val.length) {
+                Class[] metclass = met.getParameterTypes();
+                boolean isAss = true;
+                for (int i = 0; i < metclass.length; i++) {
+                    if (!metclass[i].isAssignableFrom(val[i])) {
+                        if ((metclass[i] == long.class || metclass[i] == Long.class) && (val[i] == Integer.class || val[i] == Long.class)) {
+                            continue;
+                        } else if ((metclass[i] == Float.class || metclass[i] == float.class) && (val[i] == Float.class || val[i] == Integer.class || val[i] == Long.class)) {
+                            continue;
+                        } else if ((metclass[i] == Double.class || metclass[i] == double.class) && (val[i] == Double.class || val[i] == Integer.class || val[i] == Long.class)) {
+                            continue;
+                        }
+                        isAss = false;
+                        break;
+                    }
+                }
+                if (!isAss) {
+                    continue;
+                }
+                method = met;
+                break;
+            }
+        }
+        return method;
     }
 
 }

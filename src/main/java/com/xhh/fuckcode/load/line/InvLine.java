@@ -79,40 +79,8 @@ public class InvLine extends BaseLine {
                 if (values == null) {
                     method = main.getMethod(name);
                 } else {
-                    Class[] classes = new Class[values.length];
-                    for (int i = 0; i < classes.length; i++) {
-                        classes[i] = values[i].getClass();
-                        if (values[i] instanceof String) {
-                            if (((String) values[i]).startsWith("@")) {
-                                String str = (String) values[i];
-                                values[i] = str.substring(1, str.length());
-                            }
-                        }
-                    }
-                    for (Method met : main.getMethods()) {
-                        if (met.getName().equals(name) && met.getParameterCount() == values.length) {
-                            Class[] metclass = met.getParameterTypes();
-                            boolean isAss = true;
-                            for (int i = 0; i < metclass.length; i++) {
-                                if (!metclass[i].isAssignableFrom(classes[i])) {
-                                    if ((metclass[i] == long.class || metclass[i] == Long.class) && classes[i] == Integer.class) {
-                                        continue;
-                                    } else if ((metclass[i] == Float.class || metclass[i] == float.class) && (classes[i] == Float.class || classes[i] == Integer.class || classes[i] == Long.class)) {
-                                        continue;
-                                    } else if ((metclass[i] == Double.class || metclass[i] == double.class) && (classes[i] == Double.class || classes[i] == Integer.class || classes[i] == Long.class)) {
-                                        continue;
-                                    }
-                                    isAss = false;
-                                    break;
-                                }
-                            }
-                            if (!isAss) {
-                                continue;
-                            }
-                            method = met;
-                            break;
-                        }
-                    }
+                    Class[] classes = Runtime.getClasses(values);
+                    method = Runtime.getMethod(name, main, classes);
                 }
                 if (method == null) {
                     System.out.println("找不到方法:" + name);

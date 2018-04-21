@@ -8,15 +8,15 @@ public class SystemApi {
         System.out.print(text);
     }
 
-    public static void print(Long text) {
+    public static void print(long text) {
         System.out.print(text);
     }
 
-    public static void print(Double text) {
+    public static void print(double text) {
         System.out.print(text);
     }
 
-    public static void print(Boolean text) {
+    public static void print(boolean text) {
         System.out.print(text);
     }
 
@@ -27,15 +27,19 @@ public class SystemApi {
         System.out.println(text);
     }
 
-    public static void println(Long text) {
+    public static void println(long text) {
         System.out.println(text);
     }
 
-    public static void println(Double text) {
+    public static void println(double text) {
         System.out.println(text);
     }
 
-    public static void println(Boolean text) {
+    public static void println(boolean text) {
         System.out.println(text);
+    }
+
+    public static void sleep(long time) throws InterruptedException {
+        Thread.sleep(time);
     }
 }

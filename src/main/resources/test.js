@@ -1,7 +1,7 @@
 .fun void main void
     .logic vrun 4 > 3
     .while vrun
-        .inv $java.lang.Thread sleep 1000 void
+        .inv sleep 1000
         .inv $java.lang.System currentTimeMillis vtime void void
         .inv println vtime
     .end-while
